@@ -1,0 +1,22 @@
+markdown: redcarpet
+permalink: /:categories/:title.html
+url: 
+lsi: false
+pygments: true
+safe: true
+auto: false 
+
+paginate: 8
+paginate_path: "page:num"
+
+# presonal config
+title: niepp 's Blog
+description: buwoo's Blog, powered by Jekyll...
+
+seo: 
+  keyword: 
+  description: 
+config:
+  js_dir:
+  img_dir:
+  css_dir:
