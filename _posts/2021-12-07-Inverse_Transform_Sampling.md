@@ -40,12 +40,12 @@ $$
 
 指数分布 $X\sim Exp(1)$ 
 $$
-f(x)=\begin{cases}e^{-x} & x\geq0\\0 & x<0\end{cases}
+f(x)=\begin{cases}e^{-x} & x\geq0 \\0 & x<0 \end{cases}
 $$
 
 1. 累积分布函数：
    $$
-   F(x)=\begin{cases}1-e^{-x} & x\geq0\\0 & x<0\end{cases}
+   F(x)=\begin{cases}1-e^{-x} & x\geq0 \\0 & x<0 \end{cases}
    $$
 
 2. $F(x)$的反函数：$F^{-1}(x)=-ln(1-x)$，其中$x\in[0,1)$
