@@ -1,10 +1,17 @@
-#markdown: redcarpet
+markdown: kramdown
 permalink: /:categories/:title.html
 url: 
 lsi: false
 pygments: false
 safe: true
 auto: false 
+
+highlighter: rouge
+gist:
+  noscript: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
 
 paginate: 8
 paginate_path: "page:num"
