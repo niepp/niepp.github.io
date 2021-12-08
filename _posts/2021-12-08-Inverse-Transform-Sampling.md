@@ -19,13 +19,17 @@ typora-root-url: ..\niepp.github.io\assets\images
 ### 证明
 
 对于随机变量$$X$$，如果满足标准均匀分布的话，对任给的$$a\in[0, 1]$$，有$$Pr(X≤a)=a$$，那么有：
+
 $$
 Pr(X≤F(y))=F(y)
 $$
+
 然后$$F(y)$$是值域$$[0,1]$$上的严格单调递增函数，它一定存在反函数，且反函数也是严格单调递增的，于是：
+
 $$
 Pr(F^{-1}(X)≤y)=F(y)
 $$
+
 根据累积分布函数的定义$$F(y) = Pr(X≤y)$$，上式表明$$F^{-1}(X)$$是个满足累积分布函数$$F(y)$$的随机数，证毕。
 
 
@@ -84,6 +88,6 @@ plt.show()
 
 ### Reference
 
-1. [](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
-2. [](https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables)
-3. [](http://corysimon.github.io/articles/uniformdistn-on-sphere/)
+1. [https://en.wikipedia.org/wiki/Inverse_transform_sampling](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
+2. [https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables](https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables)
+3. [http://corysimon.github.io/articles/uniformdistn-on-sphere/](http://corysimon.github.io/articles/uniformdistn-on-sphere/)
