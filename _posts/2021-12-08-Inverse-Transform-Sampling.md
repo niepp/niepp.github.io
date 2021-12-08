@@ -78,7 +78,7 @@ plt.show()
 
 基本符合$$y=e^{-x}$$
 
-![exp_rand]({{ ../assets/images/exp_rand.png" | relative_url }}) 
+![exp_rand](https://github.com/niepp/srpbr/blob/main/assets/images/exp_rand.png) 
 
 
 ### Reference
