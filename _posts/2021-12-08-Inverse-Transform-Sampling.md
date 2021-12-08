@@ -32,9 +32,8 @@ $$
 
 ### 例子
 
-从标准均匀分布随机数生成满足指数分布的随机数
+从标准均匀分布随机数生成满足指数分布的随机数，指数分布 $$X\sim exp(1)$$
 
-指数分布 $$X\sim exp(1)$$ 
 $$
 f(x)=\begin{cases}e^{-x} & x\geq0 \\0 & x<0 \end{cases}
 $$
@@ -81,10 +80,10 @@ plt.show()
 
 基本符合$$y=e^{-x}$$
 
-![exp_rand](/exp_rand.png)
+![exp_rand](../assets/images/exp_rand.png)
 
 ### Reference
 
-1. https://en.wikipedia.org/wiki/Inverse_transform_sampling
-2. https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables
-3. http://corysimon.github.io/articles/uniformdistn-on-sphere/
+1. [](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
+2. [](https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables)
+3. [](http://corysimon.github.io/articles/uniformdistn-on-sphere/)
