@@ -1,4 +1,8 @@
-​	    逆变换采样(Inverse Transform Sampling or Inversion Method)是一种从标准均匀分布的随机数出发，通过变换生成按我们指定的概率密度分布的随机数的方法。[1][2]
+---
+typora-root-url: ..\assets\images
+---
+
+	    逆变换采样(Inverse Transform Sampling or Inversion Method)是一种从标准均匀分布的随机数出发，通过变换生成按我们指定的概率密度分布的随机数的方法。[1][2]
 
 ### 问题
 
@@ -78,7 +82,7 @@ plt.show()
 
 基本符合$$y=e^{-x}$$
 
-![exp_rand](https://github.com/niepp/niepp.github.io/blob/main/assets/images/exp_rand.png) 
+![exp_rand](/exp_rand.png) 
 
 
 ### Reference
