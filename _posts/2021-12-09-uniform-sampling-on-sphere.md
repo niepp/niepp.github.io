@@ -4,7 +4,7 @@ typora-root-url: image_videos
 
 ## 单位半球面上的均匀随机采样
 
-![sphere_coordinate](/sphere_coordinate.jpg)
+![sphere_coordinate](../../../images/sphere_coordinate.jpg)
 
 ​		在球面坐标系下，把球面微元看做简单矩形计算面积，可得球面微元面积：
 $$
