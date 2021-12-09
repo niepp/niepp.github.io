@@ -1,8 +1,7 @@
 ---
-typora-root-url: ..\assets\images
+typora-root-url: ../images
 ---
-
-	    逆变换采样(Inverse Transform Sampling or Inversion Method)是一种从标准均匀分布的随机数出发，通过变换生成按我们指定的概率密度分布的随机数的方法。[1][2]
+​		逆变换采样(Inverse Transform Sampling or Inversion Method)是一种从标准均匀分布的随机数出发，通过变换生成按我们指定的概率密度分布的随机数的方法。[1][2]
 
 ### 问题
 
