@@ -81,7 +81,7 @@ plt.show()
 
 基本符合$$y=e^{-x}$$
 
-![exp_rand](./images/exp_rand.png) 
+![exp_rand](../../../images/exp_rand.png) 
 
 
 ### Reference
