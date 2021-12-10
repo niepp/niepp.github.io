@@ -87,5 +87,7 @@ plt.show()
 ### Reference
 
 1. [https://en.wikipedia.org/wiki/Inverse_transform_sampling](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
-2. [https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables](https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables)
-3. [http://corysimon.github.io/articles/uniformdistn-on-sphere/](http://corysimon.github.io/articles/uniformdistn-on-sphere/)
+2. [https://dk81.github.io/dkmathstats_site/prob-inverse-cdf.html](https://dk81.github.io/dkmathstats_site/prob-inverse-cdf.html)
+3. [https://blogs.sas.com/content/iml/2013/07/22/the-inverse-cdf-method.html](https://blogs.sas.com/content/iml/2013/07/22/the-inverse-cdf-method.html)
+4. [https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables](https://www.pbr-book.org/3ed-2018/Monte_Carlo_Integration/Sampling_Random_Variables)
+5. [http://corysimon.github.io/articles/uniformdistn-on-sphere/](http://corysimon.github.io/articles/uniformdistn-on-sphere/)
