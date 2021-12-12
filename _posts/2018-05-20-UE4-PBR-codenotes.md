@@ -106,10 +106,10 @@ SpecularIBL = SpecularIBL * SpecularIBL; // Specular BRDF
 ```
 
 ## [pc]
-Private/ReflectionEnvironmentComposite.ush
-Private/ReflectionEnvironmentPixelShader.usf
+- Private/ReflectionEnvironmentComposite.ush
+- Private/ReflectionEnvironmentPixelShader.usf
 
-IBL高光
+**IBL高光**
 IBL高光计算中分离和的第二部分：EnvBRDF( SpecularColor, GBuffer.Roughness, NoV )，根据roughness和dot(Normal, ViewDir)采样BRDF-LUT
 
 ```
