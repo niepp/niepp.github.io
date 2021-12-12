@@ -53,8 +53,8 @@ header_pages:
 # Build settings
 theme: minima
 
-jekyll-feed
+#jekyll-feed
 
 plugins:
- - jekyll-feed
+# - jekyll-feed
  - jekyll-seo-tag
