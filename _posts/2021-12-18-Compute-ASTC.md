@@ -348,13 +348,17 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 ### 4x4和6x6的实际压缩精度
 #### 1. 单图
-|Origin| ARM 4x4<br>PSNR: 37 | ComputeASTC4x4<br>PSNR: 34.22 |ComputeASTC6x6<br>PSNR: 29.34|
-| :------: | :------: | :------: | :------: |
-|![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png)|![compute_astc4x4_fast](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
+| Origin | ARM 4x4 PSNR: 37 |
+| :------: | :------: |
+|![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png)|
+
+| ComputeASTC4x4 PSNR: 34.22 | ComputeASTC6x6 PSNR: 29.34 |
+| :------: | :------: |
+|![](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 
 | “ARM 4x4 fast” - “Origin”| “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
 | ---- | ---- | ---- |
-|![Origin-ARM4x4_fast](/../../../images/Origin-ARM4x4_fast.png)|![Origin-ComputeASTC4x4_fast](/../../../images/Origin-ComputeASTC4x4_fast.png)|![Origin-ComputeASTC6x6_fast](/../../../images/Origin-ComputeASTC6x6_fast.png)|
+|![](/../../../images/Origin-ARM4x4_fast.png)|![](/../../../images/Origin-ComputeASTC4x4_fast.png)|![](/../../../images/Origin-ComputeASTC6x6_fast.png)|
 
 |Origin with alpha<br> channel| ComputeASTC 4x4<br>PSNR:  38.08| ComputeASTC 6x6<br>PSNR:  34.92 |
 | ---- | ---- | ---- |
@@ -407,11 +411,11 @@ MaxDistPair时间开销较大，BoundingBox精度较差，只考虑用MaxAccum�
 | 1024 6x6 fast | 3.87| 1.88 |
 | 2048 4x4 fast | -| 6.16 |
 | 2048 6x6 fast | -| 6.88 |
-| | | |
+|\*|\*|\*|
 | 512 4x4 blockmode | 5.72| 4.35 |
 | 512 6x6 blockmode | 10.51| 7.44 |
-| 1024 4x4 blockmode | - | - |
-| 1024 6x6 blockmode | - | - |
+| 1024 4x4 blockmode |\*|\*|
+| 1024 6x6 blockmode |\*|\*|
 
 **同条件下与UE4.26 ETC2的对比：**
 
