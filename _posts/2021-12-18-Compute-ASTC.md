@@ -40,15 +40,15 @@ ASTC格式作为当前最新的gpu纹理格式，有很多的**优势**：
 ASTC压缩的精度损失主要来自下面三个方面：
 1. 基于主轴进行颜色插值的插值误差
 	处在主轴线上的点是可以被精确插值的，离主轴距离为d的点，插值误差即可由d来衡量。
-2. <img src="../../../images/linear_fitting.png" alt="image-20211218131643631" style="zoom:50%;" />
-3. endpoints的量化误差
+	1. <img src="../../../images/linear_fitting.png" alt="image-20211218131643631" style="zoom:50%;" />
+2. endpoints的量化误差
           量化Range为$$R$$，256个像素级，量化分配到$$R$$个值上，形成$$R-1$$个像素范围，平均每个像素级范围大小为$$\lceil256/(R-1)\rceil$$，取范围中心进行反量化，则像素量化误差为：$$\lceil256/(R-1)\rceil/2$$，**随着R越小，误差越大**。
          例如：量化范围$$R=48$$时，对颜色值$$c = 8$$进行量化，再反量化后，颜色值还原为5，误差为3。用$$Range=256$$的话，就相当于无损失的量化了。
-4. weights的量化误差
+3. weights的量化误差
           量化Range为$$R$$，那么权重$$w(0 \leq w \leq 1)$$的量化误差为：$$|w - [w*R+0.5] / R|$$，由于$$w*R$$与$$[w*R+0.5]$$相差最多0.5，因此误差最大值是$$0.5/R$$，**随着R越小，误差越大**。
-5. weights网格的插值误差
+4. weights网格的插值误差
        除了3d纹理的z方向上外，权重网格在各个对应维度上可以小于实际的块大小。用双线性插值来拟合。
-6. <img src="../../../images/block_weights.png" alt="image-20211218132030004" style="zoom:50%;" />
+   1. <img src="../../../images/block_weights.png" alt="image-20211218132030004" style="zoom:50%;" />
 
 ## ASTC块的编码组成
 ![image-20211218132624919](../../../images/astc_block_layout.png)
@@ -275,7 +275,7 @@ const uint8 bits_trits_quints_table[QUANT_MAX][3] = {
 ### 压缩思路
 举个例子：
 
-​        考虑编码5个范围在[0,2]的整型数据，naive的想法是每个数据用2bit，5个数需要10bit，BISE的想法是每个数据有3可能，5个数排列的话总共有($$3^5 = 243$$)种可能，用8bits的就可以存储所有的这些组合了，每个数据仅需要(8/5=1.6bit)。
+​            考虑编码5个范围在[0,2]的整型数据，naive的想法是每个数据用2bit，5个数需要10bit，BISE的想法是每个数据有3可能，5个数排列的话总共有($$3^5 = 243$$)种可能，用8bits的就可以存储所有的这些组合了，每个数据仅需要(8/5=1.6bit)。
 
 ### BISE的压缩过程
 1. 确定压缩模式
@@ -284,7 +284,7 @@ const uint8 bits_trits_quints_table[QUANT_MAX][3] = {
    按组编码，Base3为每5个数一组（Base5为每3个数一组），每个数会被分成高位和低位，高位组合编码，低位直接存储。高位和低位的分割只取决于数据范围Range。        
 
 #### BISE编码表
-​        bits_trits_quints_table数组的每行的第一列即表示那个Range下，高低位bit的分割位置。第二列和第三列表示是用Base3还是Base5编码。
+​            bits_trits_quints_table数组的每行的第一列即表示那个Range下，高低位bit的分割位置。第二列和第三列表示是用Base3还是Base5编码。
 ```c++
  /**
   * Table that describes the number of trits or quints along with bits required
@@ -350,18 +350,18 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 #### 1. 单图
 |Origin| ARM 4x4 fast PSNR: 37 | ComputeASTC4x4 PSNR: 34.22 | ComputeASTC6x6 PSNR: 29.34 |
 | :------: | :------: | :------: | :------: |
-|![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png) |![compute_astc4x4_fast](../../../images/compute_astc4x4_fast.png) |![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
+|![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png)|![compute_astc4x4_fast](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 
 | “ARM 4x4 fast” - “Origin”| “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
 | ---- | ---- | ---- |
 |![Origin-ARM4x4_fast](/../../../images/Origin-ARM4x4_fast.png)|![Origin-ComputeASTC4x4_fast](/../../../images/Origin-ComputeASTC4x4_fast.png)|![Origin-ComputeASTC6x6_fast](/../../../images/Origin-ComputeASTC6x6_fast.png)|
 
-|Origin with alpha channel| ComputeASTC 4x4  PSNR:  38.08| ComputeASTC 6x6  PSNR:  34.92 |
+|Origin with alpha<br> channel| ComputeASTC 4x4<br>PSNR:  38.08| ComputeASTC 6x6<br>PSNR:  34.92 |
 | ---- | ---- | ---- |
 |![origin_with_alpha](/../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](/../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](/../../../images/compute_astc6x6_alpha.png) |
 
 
-|NormalMap origin| ComputeASTC 4x4 fast  PSNR: 43.74 |
+|NormalMap origin| ComputeASTC 4x4<br>PSNR: 43.74 |
 | ---- | ---- |
 |![normalmap_origin](/../../../images/normalmap_origin.png)|![normalmap_computeASTC4x4](/../../../images/normalmap_computeASTC4x4.png)|
 
@@ -386,18 +386,20 @@ PCA的PSNR基本是最优的！MaxAccum与PCA非常接近
 #### 各Endpoints算法时间开销比较
 
 压缩时间开销(1024 4x4 fast on iphone12)：
+
 | Method  | Time(ms) |
-| ----------- | -------- |
+| -------- | -------- |
 | MaxAccum    | 1.97     |
 | PCA         | 2.37     |
 | BoundingBox | 1.61     |
 | MaxDistPair | 8.25     |
+
 MaxDistPair时间开销较大，BoundingBox精度较差，只考虑用MaxAccum或者PCA。
 时间开销上除了MaxDistPair外差别不大，综合考虑用MaxAccum。
 
 
 ### 性能开销统计
-| 全mips压缩 | IPhone6s+（ms） | IPhone12 (ms) |
+| 全mips压缩 | IPhone6s+（ms） | IPhone12 (ms)|
 | ---- | ---- | ---- |
 | 512 4x4 fast | 0.75 | 0.53 |
 | 512 6x6 fast | 1.13| 0.52 |
