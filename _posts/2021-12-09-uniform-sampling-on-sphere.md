@@ -38,8 +38,7 @@ $$
 
 ​		再根据从标准均匀分布计算指定分布的**逆变换方法**：
 
-1.  先计算累积分布函数：
-
+[1]先计算累积分布函数：
 $$
 \begin{equation}\begin{split}
 &F_U(u)=\int_{0}^{u}sin(t)dt=1-cos(u)\\
@@ -47,7 +46,7 @@ $$
 \end{split}\end{equation}
 $$
 
-2.  取累积分布函数的反函数：
+[2]取累积分布函数的反函数：
 
 $$
 \begin{equation}\begin{split}
@@ -56,14 +55,13 @@ $$
 \end{split}\end{equation}
 $$
 
-3.  从标准均匀分布生成随机数$$(U,V)$$，令：
-
-   $$
+[3]从标准均匀分布生成随机数$$(U,V)$$，令：
+$$
    \begin{equation}\begin{split}
    &{\Theta}=arccos(1-U)\\
    &{\Phi}=2{\pi}V
    \end{split}\end{equation}
-   $$
+$$
 
    则$$(\Theta,\Phi)$$是在$$({\theta},{\phi})$$参数平面上满足联合分布$$u(\theta)v(\phi)=sin({\theta})/2{\pi}$$的随机数，然后从$$(\Theta,\Phi)$$计算出直角坐标系下的球面方向就是均匀分布的了。
 
