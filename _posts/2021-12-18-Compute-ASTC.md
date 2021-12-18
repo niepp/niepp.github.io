@@ -351,7 +351,7 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 | Origin | ARM 4x4 PSNR: 37 |
 | :------: | :------: |
-|![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png)|
+|![](../../../images/origin.png)|![](../../../images/arm_4x4_fast.png)|
 
 | ComputeASTC4x4 PSNR: 34.22 | ComputeASTC6x6 PSNR: 29.34 |
 | :------: | :------: |
