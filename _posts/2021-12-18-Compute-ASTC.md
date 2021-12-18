@@ -366,12 +366,12 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 | ---- | ---- | ---- |
 |![](/../../../images/Origin-ARM4x4_fast.png)|![](/../../../images/Origin-ComputeASTC4x4_fast.png)|![](/../../../images/Origin-ComputeASTC6x6_fast.png)|
 
-| Origin with alpha <br>channel| ComputeASTC 4x4<br>PSNR:  38.08| ComputeASTC 6x6<br>PSNR:  34.92 |
+| Origin with alpha channel | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
 | ---- | ---- | ---- |
 |![origin_with_alpha](/../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](/../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](/../../../images/compute_astc6x6_alpha.png) |
 
 
-|NormalMap origin| ComputeASTC 4x4<br>PSNR: 43.74 |
+|NormalMap origin| ComputeASTC 4x4  PSNR: 43.74 |
 | ---- | ---- |
 |![normalmap_origin](/../../../images/normalmap_origin.png)|![normalmap_computeASTC4x4](/../../../images/normalmap_computeASTC4x4.png)|
 
@@ -431,26 +431,29 @@ MaxDistPair时间开销较大，BoundingBox精度较差，只考虑用MaxAccum�
 |1024 RGBA8-NoMips UE4-ETC2 @ IPhone12 |0.85ms|
 |1024 4x4-NoMips ComputeASTC @ IPhone12 |1.31ms|
 
+
+
 # [reference]
-https://www.khronos.org/registry/OpenGL/extensions/KHR/KHR_texture_compression_astc_hdr.txt
-https://www.khronos.org/registry/DataFormat/specs/1.2/dataformat.1.2.html#ASTC
-https://developer.arm.com/architectures/media-architectures/astc
-https://developer.nvidia.com/astc-texture-compression-for-game-assets
-http://delivery.acm.org/10.1145/2390000/2383812/supp/astc-supplemental-material.pdf
-https://developer.arm.com/-/media/Files/pdf/graphics-and-multimedia/Stacy_ASTC_white%20paper.pdf
-DANIEL OOM. Real-Time Adaptive Scalable Texture Compression for the Web
-Nystad1. Adaptive Scalable Texture Compression
-http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/
-https://rockets2000.wordpress.com/2018/01/09/astc-partitions/
-Oskar. Compressing dynamically generated textures on the GPU
-https://community.arm.com/developer/tools-software/graphics/b/blog/posts/arm-unveils-details-of-astc-texture-compression-at-hpg-conference---part-1
-https://community.arm.com/developer/tools-software/graphics/b/blog/posts/astc-texture-compression-arm-pushes-the-envelope-in-graphics-technology
-https://zh.wikipedia.org/wiki/主成分分析
-https://zh.wikipedia.org/wiki/协方差矩阵
-https://www.cnblogs.com/pinard/p/6239403.html
-http://mlwiki.org/index.php/Power_Iteration
-https://www.researchgate.net/publication/259000525_Real-Time_DXT_Compression
-https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf
-https://developer.nvidia.com/blog/optimizing-compute-shaders-for-l2-locality-using-thread-group-id-swizzling
-https://solidpixel.github.io/2020/03/02/astc-compared.html
-https://prtsh.wordpress.com/2013/12/29/adaptive-scalable-texture-compression/
+
+1. [https://www.khronos.org/registry/OpenGL/extensions/KHR/KHR_texture_compression_astc_hdr.txt](https://www.khronos.org/registry/OpenGL/extensions/KHR/KHR_texture_compression_astc_hdr.txt)
+2. [https://www.khronos.org/registry/DataFormat/specs/1.2/dataformat.1.2.html#ASTC](https://www.khronos.org/registry/DataFormat/specs/1.2/dataformat.1.2.html#ASTC)
+3. [https://developer.arm.com/architectures/media-architectures/astc](https://developer.arm.com/architectures/media-architectures/astc)
+4. [https://developer.nvidia.com/astc-texture-compression-for-game-assets](https://developer.nvidia.com/astc-texture-compression-for-game-assets)
+5. [http://delivery.acm.org/10.1145/2390000/2383812/supp/astc-supplemental-material.pdf](http://delivery.acm.org/10.1145/2390000/2383812/supp/astc-supplemental-material.pdf)
+6. [https://developer.arm.com/-/media/Files/pdf/graphics-and-multimedia/Stacy_ASTC_white%20paper.pdf](https://developer.arm.com/-/media/Files/pdf/graphics-and-multimedia/Stacy_ASTC_white%20paper.pdf)
+7. DANIEL OOM. Real-Time Adaptive Scalable Texture Compression for the Web
+   Nystad1. Adaptive Scalable Texture Compression
+8. [http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/](http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/)
+9. [https://rockets2000.wordpress.com/2018/01/09/astc-partitions/](https://rockets2000.wordpress.com/2018/01/09/astc-partitions/)
+10. Oskar. Compressing dynamically generated textures on the GPU
+11. [https://community.arm.com/developer/tools-software/graphics/b/blog/posts/arm-unveils-details-of-astc-texture-compression-at-hpg-conference---part-1](https://community.arm.com/developer/tools-software/graphics/b/blog/posts/arm-unveils-details-of-astc-texture-compression-at-hpg-conference---part-1)
+12. [https://community.arm.com/developer/tools-software/graphics/b/blog/posts/astc-texture-compression-arm-pushes-the-envelope-in-graphics-technology](https://community.arm.com/developer/tools-software/graphics/b/blog/posts/astc-texture-compression-arm-pushes-the-envelope-in-graphics-technology)
+13. [https://zh.wikipedia.org/wiki/主成分分析](https://zh.wikipedia.org/wiki/主成分分析)
+14. [https://zh.wikipedia.org/wiki/协方差矩阵](https://zh.wikipedia.org/wiki/协方差矩阵)
+15. [https://www.cnblogs.com/pinard/p/6239403.html](https://www.cnblogs.com/pinard/p/6239403.html)
+16. [http://mlwiki.org/index.php/Power_Iteration](http://mlwiki.org/index.php/Power_Iteration)
+17. [https://www.researchgate.net/publication/259000525_Real-Time_DXT_Compression](https://www.researchgate.net/publication/259000525_Real-Time_DXT_Compression)
+18. [https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf](https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf)
+19. [https://developer.nvidia.com/blog/optimizing-compute-shaders-for-l2-locality-using-thread-group-id-swizzling](https://developer.nvidia.com/blog/optimizing-compute-shaders-for-l2-locality-using-thread-group-id-swizzling)
+20. [https://solidpixel.github.io/2020/03/02/astc-compared.html](https://solidpixel.github.io/2020/03/02/astc-compared.html)
+21. [https://prtsh.wordpress.com/2013/12/29/adaptive-scalable-texture-compression/](https://prtsh.wordpress.com/2013/12/29/adaptive-scalable-texture-compression/)
