@@ -348,6 +348,7 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 ### 4x4和6x6的实际压缩精度
 #### 1. 单图
+
 | Origin | ARM 4x4 PSNR: 37 |
 | :------: | :------: |
 |![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png)|
@@ -403,6 +404,7 @@ MaxDistPair时间开销较大，BoundingBox精度较差，只考虑用MaxAccum�
 
 
 ### 性能开销统计
+
 | 全mips压缩 | IPhone6s+（ms） | IPhone12 (ms)|
 | ---- | ---- | ---- |
 | 512 4x4 fast | 0.75 | 0.53 |
