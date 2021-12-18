@@ -354,25 +354,25 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 ### 4x4和6x6的实际压缩精度
 #### 1. 单图
 
-|![](../../../images/origin.png)|![](../../../images/arm_4x4_fast.png)|
-| :------: | :------: |
 | Origin | ARM 4x4 PSNR: 37 |
-
-|![](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 | :------: | :------: |
+|![](../../../images/origin.png)|![](../../../images/arm_4x4_fast.png)|
+
 | ComputeASTC4x4 PSNR: 34.22 | ComputeASTC6x6 PSNR: 29.34 |
+| :------: | :------: |
+|![](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 
+|  “ARM fast 4x4” - “Origin”   | “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
+| ---- | ---- | ---- |
 |![](../../../images/Origin-ARM4x4_fast.png)|![](../../../images/Origin-ComputeASTC4x4_fast.png)|![](../../../images/Origin-ComputeASTC6x6_fast.png)|
-| ---- | ---- | ---- |
-| “ARM fast 4x4” - “Origin” | “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
 
+| Origin hasalpha channel     | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
+| ---- | ---- | ---- |
 |![origin_with_alpha](../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](../../../images/compute_astc6x6_alpha.png) |
-| ---- | ---- | ---- |
-| Origin hasalpha channel  | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
 
-|![normalmap_origin](../../../images/normalmap_origin.png)|![normalmap_computeASTC4x4](../../../images/normalmap_computeASTC4x4.png)|
+| Normal Map origin    | ComputeASTC 4x4  PSNR: 43.74 |
 | ---- | ---- |
-| Normal Map origin | ComputeASTC 4x4  PSNR: 43.74 |
+|![normalmap_origin](../../../images/normalmap_origin.png)|![normalmap_computeASTC4x4](../../../images/normalmap_computeASTC4x4.png)|
 
 #### 2. 多图PSNR（峰值信噪比）对比
 
