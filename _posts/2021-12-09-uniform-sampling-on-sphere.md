@@ -38,7 +38,7 @@ $$
 
 ​		再根据从标准均匀分布计算指定分布的**逆变换方法**：
 
-1. 先计算累积分布函数：
+1.  先计算累积分布函数：
 
 $$
 \begin{equation}\begin{split}
@@ -47,7 +47,7 @@ $$
 \end{split}\end{equation}
 $$
 
-2. 取累积分布函数的反函数：
+2.  取累积分布函数的反函数：
 
 $$
 \begin{equation}\begin{split}
@@ -56,7 +56,7 @@ $$
 \end{split}\end{equation}
 $$
 
-3. 从标准均匀分布生成随机数$$(U,V)$$，令：
+3.  从标准均匀分布生成随机数$$(U,V)$$，令：
 
    $$
    \begin{equation}\begin{split}
