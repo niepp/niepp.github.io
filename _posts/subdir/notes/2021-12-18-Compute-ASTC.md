@@ -64,9 +64,9 @@ ASTC压缩的精度损失主要来自下面三个方面：
 
 
 ## block mode的组成
-![enter image description here](/../../../images/block_layout.png)
+![enter image description here](../../../images/block_layout.png)
 
-![enter image description here](/../../../images/blockmode_layout.png)
+![enter image description here](../../../images/blockmode_layout.png)
 * blockmode是位于128bit的最开头的固定的11bit。
 
 * Blockmode里定义了权重weights的量化范围，权重网格的大小。
@@ -84,7 +84,7 @@ block 4\*4的所有1024个2-Partition的样式
 
 | 含有红绿蓝三色的4x4的图像 | 使用single partition方式压缩 | 使用2-partition方式压缩 |
 | :------:| --------- | --------|
-|![benchmark](/../../../images/benchmark.png)|![single_partition](/../../../images/compressed_by_single_partition.png) |![multi_partition](/../../../images/compressed_by_multi_partition.png) |
+|![benchmark](../../../images/benchmark.png)|![single_partition](../../../images/compressed_by_single_partition.png) |![multi_partition](../../../images/compressed_by_multi_partition.png) |
 
 ## dual planes
 * BlockMode Layout里有个D字段，表示是否像素的rgba通道中有任何通道要进行分开编码，也就是会有两套endpoints和权重网格。这一般是由于像素中含有互相不太相关的通道，比如NormalMap，透明遮罩等。
@@ -364,23 +364,23 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 | “Arm____FAST4x4” - “Origin” | “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
 | ---- | ---- | ---- |
-|![](/../../../images/Origin-ARM4x4_fast.png)|![](/../../../images/Origin-ComputeASTC4x4_fast.png)|![](/../../../images/Origin-ComputeASTC6x6_fast.png)|
+|![](../../../images/Origin-ARM4x4_fast.png)|![](../../../images/Origin-ComputeASTC4x4_fast.png)|![](../../../images/Origin-ComputeASTC6x6_fast.png)|
 
 | Origin hasalpha channel  | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
 | ---- | ---- | ---- |
-|![origin_with_alpha](/../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](/../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](/../../../images/compute_astc6x6_alpha.png) |
+|![origin_with_alpha](../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](../../../images/compute_astc6x6_alpha.png) |
 
 
 | Normal Map origin   | ComputeASTC 4x4  PSNR: 43.74 |
 | ---- | ---- |
-|![normalmap_origin](/../../../images/normalmap_origin.png)|![normalmap_computeASTC4x4](/../../../images/normalmap_computeASTC4x4.png)|
+|![normalmap_origin](../../../images/normalmap_origin.png)|![normalmap_computeASTC4x4](../../../images/normalmap_computeASTC4x4.png)|
 
 #### 2. 多图PSNR（峰值信噪比）对比
 
 测试纹理：从GTA5里导出的220张纹理
-![gtav_textures](/../../../images/gtav_textures.png)
+![gtav_textures](../../../images/gtav_textures.png)
 
-![psnr_all](/../../../images/psnr_all.png)
+![psnr_all](../../../images/psnr_all.png)
 
 **总体精度上远好于UE4-etc2，十分接近ARM-ASTC fast离线压缩。**
 
