@@ -364,10 +364,9 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 | diff to origin | diff to origin | diff to origin |
 | ---- | ---- | ---- |
-| ARM-ASTC 4x4 fast | ComputeASTC4x4 | ComputeASTC6x6 |
 |![](/../../../images/Origin-ARM4x4_fast.png)|![](/../../../images/Origin-ComputeASTC4x4_fast.png)|![](/../../../images/Origin-ComputeASTC6x6_fast.png)|
 
-| Origin with alpha channel | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
+| Origin with  alpha channel | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
 | ---- | ---- | ---- |
 |![origin_with_alpha](/../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](/../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](/../../../images/compute_astc6x6_alpha.png) |
 
