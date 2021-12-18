@@ -362,7 +362,7 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 | :------: | :------: |
 |![](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 
-| “ARM 4x4 fast” - “Origin” | “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
+| “ARM-ASTC 4x4 fast” - “Origin” | “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
 | ---- | ---- | ---- |
 |![](/../../../images/Origin-ARM4x4_fast.png)|![](/../../../images/Origin-ComputeASTC4x4_fast.png)|![](/../../../images/Origin-ComputeASTC6x6_fast.png)|
 
@@ -437,23 +437,24 @@ MaxDistPair时间开销较大，BoundingBox精度较差，只考虑用MaxAccum�
 
 1. [https://www.khronos.org/registry/OpenGL/extensions/KHR/KHR_texture_compression_astc_hdr.txt](https://www.khronos.org/registry/OpenGL/extensions/KHR/KHR_texture_compression_astc_hdr.txt)
 2. [https://www.khronos.org/registry/DataFormat/specs/1.2/dataformat.1.2.html#ASTC](https://www.khronos.org/registry/DataFormat/specs/1.2/dataformat.1.2.html#ASTC)
-3. [https://developer.arm.com/architectures/media-architectures/astc](https://developer.arm.com/architectures/media-architectures/astc)
-4. [https://developer.nvidia.com/astc-texture-compression-for-game-assets](https://developer.nvidia.com/astc-texture-compression-for-game-assets)
-5. [http://delivery.acm.org/10.1145/2390000/2383812/supp/astc-supplemental-material.pdf](http://delivery.acm.org/10.1145/2390000/2383812/supp/astc-supplemental-material.pdf)
-6. [https://developer.arm.com/-/media/Files/pdf/graphics-and-multimedia/Stacy_ASTC_white%20paper.pdf](https://developer.arm.com/-/media/Files/pdf/graphics-and-multimedia/Stacy_ASTC_white%20paper.pdf)
-7. DANIEL OOM. Real-Time Adaptive Scalable Texture Compression for the Web
-   Nystad1. Adaptive Scalable Texture Compression
-8. [http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/](http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/)
-9. [https://rockets2000.wordpress.com/2018/01/09/astc-partitions/](https://rockets2000.wordpress.com/2018/01/09/astc-partitions/)
-10. Oskar. Compressing dynamically generated textures on the GPU
-11. [https://community.arm.com/developer/tools-software/graphics/b/blog/posts/arm-unveils-details-of-astc-texture-compression-at-hpg-conference---part-1](https://community.arm.com/developer/tools-software/graphics/b/blog/posts/arm-unveils-details-of-astc-texture-compression-at-hpg-conference---part-1)
-12. [https://community.arm.com/developer/tools-software/graphics/b/blog/posts/astc-texture-compression-arm-pushes-the-envelope-in-graphics-technology](https://community.arm.com/developer/tools-software/graphics/b/blog/posts/astc-texture-compression-arm-pushes-the-envelope-in-graphics-technology)
-13. [https://zh.wikipedia.org/wiki/主成分分析](https://zh.wikipedia.org/wiki/主成分分析)
-14. [https://zh.wikipedia.org/wiki/协方差矩阵](https://zh.wikipedia.org/wiki/协方差矩阵)
-15. [https://www.cnblogs.com/pinard/p/6239403.html](https://www.cnblogs.com/pinard/p/6239403.html)
-16. [http://mlwiki.org/index.php/Power_Iteration](http://mlwiki.org/index.php/Power_Iteration)
-17. [https://www.researchgate.net/publication/259000525_Real-Time_DXT_Compression](https://www.researchgate.net/publication/259000525_Real-Time_DXT_Compression)
-18. [https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf](https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf)
-19. [https://developer.nvidia.com/blog/optimizing-compute-shaders-for-l2-locality-using-thread-group-id-swizzling](https://developer.nvidia.com/blog/optimizing-compute-shaders-for-l2-locality-using-thread-group-id-swizzling)
-20. [https://solidpixel.github.io/2020/03/02/astc-compared.html](https://solidpixel.github.io/2020/03/02/astc-compared.html)
-21. [https://prtsh.wordpress.com/2013/12/29/adaptive-scalable-texture-compression/](https://prtsh.wordpress.com/2013/12/29/adaptive-scalable-texture-compression/)
+3. [https://github.com/ARM-software/astc-encoder](https://github.com/ARM-software/astc-encoder)
+4. [https://developer.arm.com/architectures/media-architectures/astc](https://developer.arm.com/architectures/media-architectures/astc)
+5. [https://developer.nvidia.com/astc-texture-compression-for-game-assets](https://developer.nvidia.com/astc-texture-compression-for-game-assets)
+6. [http://delivery.acm.org/10.1145/2390000/2383812/supp/astc-supplemental-material.pdf](http://delivery.acm.org/10.1145/2390000/2383812/supp/astc-supplemental-material.pdf)
+7. [https://developer.arm.com/-/media/Files/pdf/graphics-and-multimedia/Stacy_ASTC_white%20paper.pdf](https://developer.arm.com/-/media/Files/pdf/graphics-and-multimedia/Stacy_ASTC_white%20paper.pdf)
+8. DANIEL OOM. Real-Time Adaptive Scalable Texture Compression for the Web
+9. Nystad.2012. Adaptive Scalable Texture Compression
+10. [http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/](http://www.reedbeta.com/blog/understanding-bcn-texture-compression-formats/)
+11. [https://rockets2000.wordpress.com/2018/01/09/astc-partitions/](https://rockets2000.wordpress.com/2018/01/09/astc-partitions/)
+12. Oskar. Compressing dynamically generated textures on the GPU
+13. [https://community.arm.com/developer/tools-software/graphics/b/blog/posts/arm-unveils-details-of-astc-texture-compression-at-hpg-conference---part-1](https://community.arm.com/developer/tools-software/graphics/b/blog/posts/arm-unveils-details-of-astc-texture-compression-at-hpg-conference---part-1)
+14. [https://community.arm.com/developer/tools-software/graphics/b/blog/posts/astc-texture-compression-arm-pushes-the-envelope-in-graphics-technology](https://community.arm.com/developer/tools-software/graphics/b/blog/posts/astc-texture-compression-arm-pushes-the-envelope-in-graphics-technology)
+15. [https://zh.wikipedia.org/wiki/主成分分析](https://zh.wikipedia.org/wiki/主成分分析)
+16. [https://zh.wikipedia.org/wiki/协方差矩阵](https://zh.wikipedia.org/wiki/协方差矩阵)
+17. [https://www.cnblogs.com/pinard/p/6239403.html](https://www.cnblogs.com/pinard/p/6239403.html)
+18. [http://mlwiki.org/index.php/Power_Iteration](http://mlwiki.org/index.php/Power_Iteration)
+19. [https://www.researchgate.net/publication/259000525_Real-Time_DXT_Compression](https://www.researchgate.net/publication/259000525_Real-Time_DXT_Compression)
+20. [https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf](https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf)
+21. [https://developer.nvidia.com/blog/optimizing-compute-shaders-for-l2-locality-using-thread-group-id-swizzling](https://developer.nvidia.com/blog/optimizing-compute-shaders-for-l2-locality-using-thread-group-id-swizzling)
+22. [https://solidpixel.github.io/2020/03/02/astc-compared.html](https://solidpixel.github.io/2020/03/02/astc-compared.html)
+23. [https://prtsh.wordpress.com/2013/12/29/adaptive-scalable-texture-compression/](https://prtsh.wordpress.com/2013/12/29/adaptive-scalable-texture-compression/)
