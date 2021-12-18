@@ -348,7 +348,7 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 ### 4x4和6x6的实际压缩精度
 #### 1. 单图
-|Origin| ARM 4x4 fast PSNR: 37 | ComputeASTC4x4 PSNR: 34.22 | ComputeASTC6x6 PSNR: 29.34 |
+|Origin| ARM 4x4<br>PSNR: 37 | ComputeASTC4x4<br>PSNR: 34.22 |ComputeASTC6x6<br>PSNR: 29.34|
 | :------: | :------: | :------: | :------: |
 |![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png)|![compute_astc4x4_fast](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 
