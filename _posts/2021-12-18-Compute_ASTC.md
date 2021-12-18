@@ -40,18 +40,15 @@ ASTC格式作为当前最新的gpu纹理格式，有很多的**优势**：
 ASTC压缩的精度损失主要来自下面三个方面：
 1. 基于主轴进行颜色插值的插值误差
 	处在主轴线上的点是可以被精确插值的，离主轴距离为d的点，插值误差即可由d来衡量。
-	<img src="../../../images/linear_fitting.png" alt="image-20211218131643631" style="zoom:50%;" />
-	
-2. endpoints的量化误差
-            量化Range为$$R$$，256个像素级，量化分配到$$R$$个值上，形成$$R-1$$个像素范围，平均每个像素级范围大小为$$\lceil256/(R-1)\rceil$$，取范围中心进行反量化，则像素量化误差为：$$\lceil256/(R-1)\rceil/2$$，**随着R越小，误差越大**。
-           例如：量化范围$$R=48$$时，对颜色值$$c = 8$$进行量化，再反量化后，颜色值还原为5，误差为3。用$$Range=256$$的话，就相当于无损失的量化了。
-
-3. weights的量化误差
-            量化Range为$$R$$，那么权重$$w(0 \leq w \leq 1)$$的量化误差为：$$|w - [w*R+0.5] / R|$$，由于$$w*R$$与$$[w*R+0.5]$$相差最多0.5，因此误差最大值是$$0.5/R$$，**随着R越小，误差越大**。
-
-4. weights网格的插值误差
+2. <img src="../../../images/linear_fitting.png" alt="image-20211218131643631" style="zoom:50%;" />
+3. endpoints的量化误差
+          量化Range为$$R$$，256个像素级，量化分配到$$R$$个值上，形成$$R-1$$个像素范围，平均每个像素级范围大小为$$\lceil256/(R-1)\rceil$$，取范围中心进行反量化，则像素量化误差为：$$\lceil256/(R-1)\rceil/2$$，**随着R越小，误差越大**。
+         例如：量化范围$$R=48$$时，对颜色值$$c = 8$$进行量化，再反量化后，颜色值还原为5，误差为3。用$$Range=256$$的话，就相当于无损失的量化了。
+4. weights的量化误差
+          量化Range为$$R$$，那么权重$$w(0 \leq w \leq 1)$$的量化误差为：$$|w - [w*R+0.5] / R|$$，由于$$w*R$$与$$[w*R+0.5]$$相差最多0.5，因此误差最大值是$$0.5/R$$，**随着R越小，误差越大**。
+5. weights网格的插值误差
        除了3d纹理的z方向上外，权重网格在各个对应维度上可以小于实际的块大小。用双线性插值来拟合。
-   <img src="../../../images/block_weights.png" alt="image-20211218132030004" style="zoom:50%;" />
+6. <img src="../../../images/block_weights.png" alt="image-20211218132030004" style="zoom:50%;" />
 
 ## ASTC块的编码组成
 ![image-20211218132624919](../../../images/astc_block_layout.png)
@@ -75,9 +72,10 @@ ASTC压缩的精度损失主要来自下面三个方面：
 ## single partition & multi partition
 $$\quad\quad$$基本就是根据像素在block内的坐标，通过固定的hash函数生成partition划分。block越大，越有可能要划分multi partition。对于一个block，如何选取划分为几个子集，划分为怎样的子集，才有更好的压缩精度，ARM-ASTC有先对像素聚类，但基本上还是在穷举搜索各种partition。
 ![valid_partitions](../../../images/valid_partitions.png)
- block 4\*4的所有1024个2-Partition的样式
 
-* Benchmark图像
+block 4\*4的所有1024个2-Partition的样式
+
+### Benchmark图像
 
 | 含有红绿蓝三色的4x4的图像 | 使用single partition方式压缩 | 使用2-partition方式压缩 |
 | :------:| --------- | --------|
@@ -130,15 +128,14 @@ $$\quad\quad$$基本就是根据像素在block内的坐标，通过固定的hash
 
 4. [PCA](https://en.wikipedia.org/wiki/Principal_component_analysis)：将RGB/RGBA数据从3/4维降低到1维。
 
-
 ## 用PCA计算endpoints
-
 ### PCA原理
 
 $$\quad\quad$$讲[PCA](https://www.cnblogs.com/pinard/p/6239403.html)原理的资料很多，从数据分析角度，就是数据降维。而从几何角度来看，从RGB三维降到一维，就是要在像素RGB空间中找一个主轴方向，使得所有像素到这个轴的距离平方和最小。
 ![gaussian_scatterPCA](./../../../images/gaussian_scatterPCA.png)
 
 ### PCA过程
+
 1. 去均值化
 	+ 先计算像素平均值，然后减去平均值。
 2. 计算[协方差矩阵](https://en.wikipedia.org/wiki/Covariance)
@@ -147,8 +144,6 @@ $$\quad\quad$$讲[PCA](https://www.cnblogs.com/pinard/p/6239403.html)原理的�
     + 这可以使用[幂次法](http://mlwiki.org/index.php/Power_Iteration)，用矩阵反复多次乘一个非零的初始向量，然后归一化得到。
 4. 计算endpoints
 	+ 最大特征值对应的特征向量就是主轴方向，把原像素减去均值后，往主轴方向投影，获取投影方向上的有向距离坐标，取对应坐标最大的和最小的像素作为endpoints，同时对这个坐标归一化后，就是后续需要存储的像素的权重了。
-
-
 
 ## pixels weights
 
@@ -171,7 +166,6 @@ $$\quad\quad$$讲[PCA](https://www.cnblogs.com/pinard/p/6239403.html)原理的�
 	* 不同的color endpoint modes(CEM)有不同的编码方案，确定CEM后，再根据量化level，查找颜色量化表。
 
 
-
 ## blockmode搜索
 
 ​       blockmode搜索的主要目的是选取最优的endpoints和weights量化级别。通过先压缩再解压，取误差最小的组合。
@@ -192,7 +186,6 @@ $$\quad\quad$$讲[PCA](https://www.cnblogs.com/pinard/p/6239403.html)原理的�
 
 ```c++
 // candidate blockmode uint4(weights quantmethod, endpoints quantmethod, weights range, endpoints quantmethod index of table)
-
 #define BLOCK_MODE_NUM 10
 static const uint4 block_modes[2][BLOCK_MODE_NUM] =
 {
@@ -281,7 +274,8 @@ const uint8 bits_trits_quints_table[QUANT_MAX][3] = {
 
 ### 压缩思路
 举个例子：
-   考虑编码5个范围在[0,2]的整型数据，naive的想法是每个数据用2bit，5个数需要10bit，BISE的想法是每个数据有3可能，5个数排列的话总共有($$3^5 = 243$$)种可能，用8bits的就可以存储所有的这些组合了，每个数据仅需要(8/5=1.6bit)。
+
+​        考虑编码5个范围在[0,2]的整型数据，naive的想法是每个数据用2bit，5个数需要10bit，BISE的想法是每个数据有3可能，5个数排列的话总共有($$3^5 = 243$$)种可能，用8bits的就可以存储所有的这些组合了，每个数据仅需要(8/5=1.6bit)。
 
 ### BISE的压缩过程
 1. 确定压缩模式
@@ -290,7 +284,7 @@ const uint8 bits_trits_quints_table[QUANT_MAX][3] = {
    按组编码，Base3为每5个数一组（Base5为每3个数一组），每个数会被分成高位和低位，高位组合编码，低位直接存储。高位和低位的分割只取决于数据范围Range。        
 
 #### BISE编码表
-   bits_trits_quints_table数组的每行的第一列即表示那个Range下，高低位bit的分割位置。第二列和第三列表示是用Base3还是Base5编码。
+​        bits_trits_quints_table数组的每行的第一列即表示那个Range下，高低位bit的分割位置。第二列和第三列表示是用Base3还是Base5编码。
 ```c++
  /**
   * Table that describes the number of trits or quints along with bits required
@@ -322,15 +316,16 @@ static const uint bits_trits_quints_table[QUANT_MAX * 3] =
 };
 ```
 
-   比如，在序列4,78,55中，大于78的最小的满足三种格式的数分别是：2^7=128; 3∗2^5=96; 5∗2^4=80，其中80为最小，所以可以使用RANGE_80基于5的BISE，RANGE_80决定了共有7bit，高低位分割位置为4。
-   这三个数的二进制表示为｛000 0100, 100 1110, 011 0111｝，高三位的组合为｛000，100，011｝，低四位的组合为｛0100, 1110, 0111｝，而这3个高三位bits序列中的最大值是4，最小值是0，所以这高三位bits最多有5种情况，那么这3个高三位bits的排列组合总共可能有5^3=125种组合情况，这样的话就可以使用7bits的空间来存储这个组合，将原来需要3∗3=9bits的数据存储在7bits中，进而达到压缩的目的。余下的3个低四位的数据是直接存储，拼接在一起的，经过BISE编码后的bit序列为: {110, 11100111, 01010100}
+​          比如，在序列4,78,55中，大于78的最小的满足三种格式的数分别是：2^7=128; 3∗2^5=96; 5∗2^4=80，其中80为最小，所以可以使用RANGE_80基于5的BISE，RANGE_80决定了共有7bit，高低位分割位置为4。
+​          这三个数的二进制表示为｛000 0100, 100 1110, 011 0111｝，高三位的组合为｛000，100，011｝，低四位的组合为｛0100, 1110, 0111｝，而这3个高三位bits序列中的最大值是4，最小值是0，所以这高三位bits最多有5种情况，那么这3个高三位bits的排列组合总共可能有5^3=125种组合情况，这样的话就可以使用7bits的空间来存储这个组合，将原来需要3∗3=9bits的数据存储在7bits中，进而达到压缩的目的。余下的3个低四位的数据是直接存储，拼接在一起的，经过BISE编码后的bit序列为: {110, 11100111, 01010100}
 
 ### BISE有着接近信息熵的bit编码效率
-   每个整数需要的bit数 (BitPerValue)：$$ B=(n*S + \lceil 8S/5 \rceil) / S $$ 或者  $$ B=(n*S + \lceil 7S/3 \rceil) / S $$，随着S越大取极限的话，分别趋近于8/5 或者7/3，接近于信息熵$$\log_2{3}$$和$$\log_2{5}$$。
+​        每个整数需要的bit数 (BitPerValue)：$$ B=(n*S + \lceil 8S/5 \rceil) / S $$ 或者  $$ B=(n*S + \lceil 7S/3 \rceil) / S $$，随着S越大取极限的话，分别趋近于8/5 或者7/3，接近于信息熵$$\log_2{3}$$和$$\log_2{5}$$。
 
 **bit的信息量编码效率：**
    $$S$$个范围在$$R$$内等概率分布的正整数，每个正整数的信息量为：$$I=\log_2{R}$$，那么每个bit的信息量：$$I/B = (\log_2{R}) / B$$
 [下图横轴为整数范围，纵轴为每个bit的信息量](https://www.highperformancegraphics.org/previous/www_2012/media/Papers/HPG2012_Papers_Nystad.pdf)
+
 ![bise_storage.png](./../../../images/bise_storage.png)
 
 
@@ -354,7 +349,7 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 ### 4x4和6x6的实际压缩精度
 #### 1. 单图
 |Origin| ARM 4x4 fast PSNR: 37 | ComputeASTC4x4 PSNR: 34.22 | ComputeASTC6x6 PSNR: 29.34 |
-| ---- | ---- | ---- | ---- |
+| :------: | :------: | :------: | :------: |
 |![origin](/../../../images/origin.png)|![arm_4x4_fast](/../../../images/arm_4x4_fast.png) |![compute_astc4x4_fast](../../../images/compute_astc4x4_fast.png) |![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 
 | “ARM 4x4 fast” - “Origin”| “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
