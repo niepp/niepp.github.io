@@ -39,6 +39,7 @@ $$
 ​		再根据从标准均匀分布计算指定分布的**逆变换方法**：
 
 [1]先计算累积分布函数：
+
 $$
 \begin{equation}\begin{split}
 &F_U(u)=\int_{0}^{u}sin(t)dt=1-cos(u)\\
@@ -56,6 +57,7 @@ $$
 $$
 
 [3]从标准均匀分布生成随机数$$(U,V)$$，令：
+
 $$
    \begin{equation}\begin{split}
    &{\Theta}=arccos(1-U)\\
