@@ -378,7 +378,7 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 | Normal Map origin | ComputeASTC 4x4 PSNR: 43.74 |
 | ---- | ---- |
-|<img src="../../../images/normalmap_origin.png" width="100%">|<img src="../../../images/normalmap_computeASTC4x4.png" width="100%">|
+|![](../../../images/normalmap_origin.png){width=100%}|![](../../../images/normalmap_computeASTC4x4.png){width=100%}|
 
 #### 2. 多图PSNR（峰值信噪比）对比
 
