@@ -1,3 +1,7 @@
+---
+title: Compute ASTC
+---
+
 ## 前言
 
 ASTC格式作为当前最新的gpu纹理格式，有很多的**优势**：
