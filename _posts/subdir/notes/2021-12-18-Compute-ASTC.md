@@ -370,15 +370,15 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 | “ARM fast 4x4” - “Origin” | “ComputeASTC 4x4” - “Origin” | “ComputeASTC 6x6” - “Origin” |
 | ---- | ---- | ---- |
-|![](../../../images/Origin-ARM4x4_fast.png)|![](../../../images/Origin-ComputeASTC4x4_fast.png)|![](../../../images/Origin-ComputeASTC6x6_fast.png)|
+|<img src="../../../images/Origin-ARM4x4_fast.png" alt="drawing" width="640"/>|<img src="../../../images/Origin-ComputeASTC4x4_fast.png" alt="drawing" width="640"/>|<img src="../../../images/Origin-ComputeASTC6x6_fast.png" alt="drawing" width="640"/>|
 
 | Origin with alpha channel | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
 | ---- | ---- | ---- |
-|![origin_with_alpha](../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](../../../images/compute_astc6x6_alpha.png) |
+|<img src="../../../images/origin_with_alpha.png" alt="drawing" width="640"/>|<img src="../../../images/compute_astc4x4_alpha.png" alt="drawing" width="640"/>|<img src="../../../images/compute_astc6x6_alpha.png" alt="drawing" width="640"/>|
 
 | Normal Map origin | ComputeASTC 4x4 PSNR: 43.74 |
 | ---- | ---- |
-|<img src="../../../images/normalmap_origin.png" alt="drawing" width="240"/>|<img src="../../../images/normalmap_computeASTC4x4.png" alt="drawing" width="240"/>|
+|<img src="../../../images/normalmap_origin.png" alt="drawing" width="640"/>|<img src="../../../images/normalmap_computeASTC4x4.png" alt="drawing" width="640"/>|
 
 
 #### 2. 多图PSNR（峰值信噪比）对比
