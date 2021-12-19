@@ -39,18 +39,22 @@ ASTC格式作为当前最新的gpu纹理格式，有很多的**优势**：
 ## ASTC压缩的精度损失来源分析
 ASTC压缩的精度损失主要来自下面三个方面：
 1. 基于主轴进行颜色插值的插值误差
+	
 	处在主轴线上的点是可以被精确插值的，离主轴距离为d的点，插值误差即可由d来衡量。
 
 	<img src="../../../images/linear_fitting.png" alt="image-20211218131643631" style="zoom:50%;" />
 	
 2. endpoints的量化误差
+          
           量化Range为$$R$$，256个像素级，量化分配到$$R$$个值上，形成$$R-1$$个像素范围，平均每个像素级范围大小为$$\lceil256/(R-1)\rceil$$，取范围中心进行反量化，则像素量化误差为：$$\lceil256/(R-1)\rceil/2$$，**随着R越小，误差越大**。
          例如：量化范围$$R=48$$时，对颜色值$$c = 8$$进行量化，再反量化后，颜色值还原为5，误差为3。用$$Range=256$$的话，就相当于无损失的量化了。
       
 3. weights的量化误差
+          
           量化Range为$$R$$，那么权重$$w(0 \leq w \leq 1)$$的量化误差为：$$|w - [w*R+0.5] / R|$$，由于$$w*R$$与$$[w*R+0.5]$$相差最多0.5，因此误差最大值是$$0.5/R$$，**随着R越小，误差越大**。
       
 4. weights网格的插值误差
+       
        除了3d纹理的z方向上外，权重网格在各个对应维度上可以小于实际的块大小。用双线性插值来拟合。
    
    <img src="../../../images/block_weights.png" alt="image-20211218132030004" style="zoom:50%;" />
@@ -362,15 +366,15 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 | :------: | :------: |
 |![](../../../images/compute_astc4x4_fast.png)|![compute_astc6x6_fast](../../../images/compute_astc6x6_fast.png)|
 
-|  “ARM fast 4x4” - “Origin”   | “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
+|    “ARM fast 4x4” - “Origin”  | “ComputeASTC4x4” - “Origin” | “ComputeASTC6x6” - “Origin” |
 | ---- | ---- | ---- |
 |![](../../../images/Origin-ARM4x4_fast.png)|![](../../../images/Origin-ComputeASTC4x4_fast.png)|![](../../../images/Origin-ComputeASTC6x6_fast.png)|
 
-| Origin hasalpha channel     | ComputeASTC 4x4 PSNR:38.08 | ComputeASTC 6x6 PSNR:34.92 |
+|   Origin_has_alpha_channel    | ComputeASTC_4x4_PSNR:38.08 | ComputeASTC_6x6_PSNR:34.92 |
 | ---- | ---- | ---- |
 |![origin_with_alpha](../../../images/origin_with_alpha.png)|![compute_astc4x4_alpha](../../../images/compute_astc4x4_alpha.png)|![compute_astc6x6_alpha](../../../images/compute_astc6x6_alpha.png) |
 
-| Normal Map origin    | ComputeASTC 4x4  PSNR: 43.74 |
+|   Normal_Map_origin    | ComputeASTC_4x4_PSNR:43.74 |
 | ---- | ---- |
 |![normalmap_origin](../../../images/normalmap_origin.png)|![normalmap_computeASTC4x4](../../../images/normalmap_computeASTC4x4.png)|
 
