@@ -366,7 +366,6 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 * 把纹理各级mips合并为一个batch
 ![mips_batch](./../../../images/mips_batch.png)
 
-
 ## 实验结果
 
 ### 4x4和6x6的实际压缩精度
@@ -409,7 +408,6 @@ group尺寸的分配需要考虑纹理采样的cached友好性。[Optimizing Com
 
 PCA的PSNR基本是最优的！MaxAccum与PCA非常接近
 
-
 #### 各Endpoints算法时间开销比较
 
 压缩GPU时间开销(1024 4x4 fast on iphone12)：
@@ -423,7 +421,6 @@ PCA的PSNR基本是最优的！MaxAccum与PCA非常接近
 
 MaxDistPair时间开销较大，BoundingBox精度较差，只考虑用MaxAccum或者PCA。
 时间开销上除了MaxDistPair外差别不大，综合考虑用MaxAccum。
-
 
 ### 性能开销统计
 
@@ -447,6 +444,12 @@ MaxDistPair时间开销较大，BoundingBox精度较差，只考虑用MaxAccum�
 | ---- | ---- |
 |1024 RGBA8-NoMips UE4-ETC2 @ IPhone12 |0.85ms|
 |1024 4x4-NoMips ComputeASTC @ IPhone12 |1.31ms|
+
+
+
+## ToDo
+
+- 考虑通过聚类方式得到最优的partition划分，支持多partition以求提升大blocksize时的精度
 
 
 
