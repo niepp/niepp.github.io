@@ -4,6 +4,6 @@ title: About
 permalink: /about/
 ---
 
-game engine programmer<br>
-niedap@wechat<br>
+game programmer<br>
 happynp@qq.com
+
