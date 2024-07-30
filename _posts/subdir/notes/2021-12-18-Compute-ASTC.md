@@ -346,7 +346,7 @@ static const uint bits_trits_quints_table[QUANT_MAX * 3] =
 
 ### 结合论文[Nystad.2012]来理解arm: astc-encoder的BISE实现代码
 
-以论文里举例N为12时，表达为$$3x2^2$$，用base3的方式压缩，每5个数为一组，因为数都在$$3*2^2$$范围内，所以每个数X都可以表示为：$$X = t * 2^2 + b1 * 2 ^1 + b0 * 2 ^ 0$$，这里的t取值{0，1，2}，对应arm: astc-encoder代码中的highpart， b1，b0取值{0, 1}, 对应代码中的lowpart，如果N更大的话，对应于$$3*2^n$$，就有更大的n，那这里就有更多的lowpart（b0, b1, b2, ...）。
+以论文里举例N为12时，表达为$$3*2^2$$，用base3的方式压缩，每5个数为一组，因为数都在$$3*2^2$$范围内，所以每个数X都可以表示为：$$X = t * 2^2 + b1 * 2 ^1 + b0 * 2 ^ 0$$，这里的t取值{0，1，2}，对应arm: astc-encoder代码中的highpart， b1，b0取值{0, 1}, 对应代码中的lowpart，如果N更大的话，对应于$$3*2^n$$，就有更大的n，那这里就有更多的lowpart（b0, b1, b2, ...）。
 ![encode_ise.png](../../../images/encode_ise.png)
 5个这样的数表达出来，就有5个t，分别叫t4, t3, t2, t1, t0吧，b1b0合一起2个bit，用B表示吧，B也有5个，叫做B4, B3, B2, B1, B0吧。 t4, t3, t2, t1, t0组成一个3进制5元组，排在一起总共$$3^5 = 243$$种可能，可以用8bit存下来，这个8bit数和3进制5元组是一对一的关系，arm的astc-encoder中的
 
