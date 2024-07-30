@@ -296,12 +296,14 @@ const uint8 bits_trits_quints_table[QUANT_MAX][3] = {
 ```
 
 ### 压缩思路
-举个例子：
+​			对于数值范围在[0~N)的整数序列，如果N是2的幂，那么每个数就用[logN]个bit去表示就好了。但是如果N是2的幂超了那么一点点呢，就很浪费了。于是考虑把这样的N用$$3*2^n$$ 或者$$5x2^n$$的形式来表达，相当于是在两个相邻的2的幂的范围内再找了两个中间的点，比如在64和128之间，有$$5*2^4 = 80$$,  $$3*2^5 = 96$$。这样浪费就可能会少很多。
 
-​            考虑编码5个范围在[0,2]的整型数据，naive的想法是每个数据用2bit，5个数需要10bit，BISE的想法是每个数据有3可能，5个数排列的话总共有($$3^5 = 243$$)种可能，用8bits的就可以存储所有的这些组合了，每个数据仅需要(8/5=1.6bit)。
+​            举个例子：考虑编码5个范围在[0,2]的整型数据，naive的想法是每个数据用2bit，5个数需要10bit，BISE的想法是每个数据有3可能，5个数排列的话总共有($$3^5 = 243$$)种可能，用8bits的就可以存储所有的这些组合了，每个数据仅需要(8/5=1.6bit)。
+
+
 
 ### BISE的压缩过程
-1. 确定压缩模式
+1. 确定压缩模式:Base3或者Base5或者Binary
 2. 确定高低位分割位置
 3. 分组编码
    按组编码，Base3为每5个数一组（Base5为每3个数一组），每个数会被分成高位和低位，高位组合编码，低位直接存储。高位和低位的分割只取决于数据范围Range。        
@@ -341,6 +343,34 @@ static const uint bits_trits_quints_table[QUANT_MAX * 3] =
 
 ​          比如，在序列4,78,55中，大于78的最小的满足三种格式的数分别是：2^7=128; 3∗2^5=96; 5∗2^4=80，其中80为最小，所以可以使用RANGE_80基于5的BISE，RANGE_80决定了共有7bit，高低位分割位置为4。
 ​          这三个数的二进制表示为｛000 0100, 100 1110, 011 0111｝，高三位的组合为｛000，100，011｝，低四位的组合为｛0100, 1110, 0111｝，而这3个高三位bits序列中的最大值是4，最小值是0，所以这高三位bits最多有5种情况，那么这3个高三位bits的排列组合总共可能有5^3=125种组合情况，这样的话就可以使用7bits的空间来存储这个组合，将原来需要3∗3=9bits的数据存储在7bits中，进而达到压缩的目的。余下的3个低四位的数据是直接存储，拼接在一起的，经过BISE编码后的bit序列为: {110, 11100111, 01010100}
+
+### 结合论文[Nystad.2012]来理解arm: astc-encoder的BISE实现代码
+
+以论文里举例N为12时，表达为$$3x2^2$$，用base3的方式压缩，每5个数为一组，因为数都在$$3*2^2$$范围内，所以每个数X都可以表示为：$$X = t * 2^2 + b1 * 2 ^1 + b0 * 2 ^ 0$$，这里的t取值{0，1，2}，对应arm: astc-encoder代码中的highpart， b1，b0取值{0, 1}, 对应代码中的lowpart，如果N更大的话，对应于$$3*2^n$$，就有更大的n，那这里就有更多的lowpart（b0, b1, b2, ...）。
+![encode_ise.png](../../../images/encode_ise.png)
+5个这样的数表达出来，就有5个t，分别叫t4, t3, t2, t1, t0吧，b1b0合一起2个bit，用B表示吧，B也有5个，叫做B4, B3, B2, B1, B0吧。 t4, t3, t2, t1, t0组成一个3进制5元组，排在一起总共$$3^5 = 243$$种可能，可以用8bit存下来，这个8bit数和3进制5元组是一对一的关系，arm的astc-encoder中的
+
+```cpp
+// packed trit-value for every unpacked trit-quintuplet
+// indexed by [high][][][][low]
+static const uint8_t integer_of_trits[3][3][3][3][3] = {
+```
+编码表integer_of_trits就是从这个3进制5元组到这243个数的映射。
+```cpp
+// unpacked trit quintuplets <low,_,_,_,high> for each packed-quint value
+static const uint8_t trits_of_integer[256][5] = {
+```
+而编码表trits_of_integer就是反过来，从这243个数到3进制5元组的映射。
+
+BISE编码的时候，先通过integer_of_trits把highpart的t4, t3, t2, t1, t0编码为8bit数据（记为T[7~0]），再把T和lowpart的数据交错排列编码。**论文里这个红框部分应该是末尾漏掉了B0**。
+![Nystad_bise.png](../../../images/Nystad_bise.png)
+
+T[7] B4 T[6:5] B3 T[4] B2 T[3:2] B1 T[1:0] B0  这个交错排列对应于代码里
+![astcenc_integer_sequence.png](../../../images/astcenc_integer_sequence.png)
+
+tq_blocks[hcounter] >> block_shift[lcounter] ，block_shift[5] = { 0, 2, 4, 5, 7 } 就是bit位偏移量，结合bits_to_write[5] = { 2, 2, 1, 2, 1 }，就是对应取T的 T[1:0], T[3:2], T[4], T[6:5], T[7]
+
+
 
 ### BISE有着接近信息熵的bit编码效率
 ​        每个整数需要的bit数 (BitPerValue)：$$ B=(n*S + \lceil 8S/5 \rceil) / S $$ 或者  $$ B=(n*S + \lceil 7S/3 \rceil) / S $$，随着S越大取极限的话，分别趋近于8/5 或者7/3，接近于信息熵$$\log_2{3}$$和$$\log_2{5}$$。
